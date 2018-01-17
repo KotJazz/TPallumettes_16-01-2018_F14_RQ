@@ -65,40 +65,43 @@ ALGORITHME : jeu_de_nim_ordi
 BUT : Simuler le jeu de nim contre un ordinateur
 ENTREE : Pioche de l'utilisateur lors de son tour
 SORTIE : Victoire ou défaite de l'utilisateur
+
+CONST : 
+
+totallumettes<-21:ENTIER
+
 VAR :
-	total, pioche : ENTIER
-	tourj1 : BOOLEEN
+	total, pioche, cptour : ENTIER
 DEBUT :
 //initialisation
-	total<-21
+	total<-totallumettes
 	pioche<-0
-	tourj1<-VRAI
+	cptour<-0
 	TANTQUE (total>1) FAIRE
-		tourj1<-VRAI
-		ECRIRE "Au tour du premier joueur de tirer une, deux ou trois allumettes."
+		SI (cptour MOD 2=0) ALORS
+			ECRIRE "Au tour du premier joueur de tirer une, deux ou trois allumettes."
+			LIRE pioche
+		SINON
+			ECRIRE "Au tour de l'ordinateur de tirer une, deux ou trois allumettes."
+			pioche<-ALEATOIRE(1,3)
+			ECRIRE "L'ordinateur pioche ",pioche,"allumette(s)"
+		FINSI
 		LIRE pioche
-		TANTQUE (pioche>3) OU (pioche<1) FAIRE
-			"Saisie incorrecte. Veuillez tirer une, deux ou trois allumettes."
-			LIRE pioche
-		FINTANTQUE
-		TANTQUE pioche>total FAIRE
-			ECRIRE "Erreur : Il ne reste pas assez d`allumettes, tirez-en-moins."
-			LIRE pioche
-		FINTANTQUE
-		total<-total-pioche
-		ECRIRE "Il reste ",total," allumettes"
-		//Tour de l'ordinateur
-		tourj1<-FAUX
-		ECRIRE "Au tour de l'ordinateur de tirer une, deux ou trois allumettes."
-		pioche<-NOMBRE ALEATOIRE ENTRE 1 ET 3
-		ECRIRE "L'ordinateur pioche ",pioche," allumettes."
-		total<-total-pioche
-		ECRIRE "Il reste ",total," allumettes"
+		SI (pioche<total )ALORS
+			SI (pioche<=3) OU (pioche>=1) ALORS
+				total<-total-pioche
+				cptour<-cptour+1
+				ECRIRE "Il reste ",total," allumettes"
+			SINON
+				ECRIRE "Saisie incorrecte. Veuillez tirer une, deux ou trois allumettes."
+			FINSI
+		SINON
+			ECRIRE "Il ne reste plus assez d'allumettes."
+		FINSI
 	FINTANTQUE
-	SI tourj1 ALORS
-		ECRIRE "Victoire de l'ordinateur."
-	FINSI
-	SI NON tourj1 ALORS
+	SI (cptour MOD 2=0) ALORS
+		ECRIRE "Victoire de l'ordi."
+	SINON
 		ECRIRE "Victoire du joueur 1."
 	FINSI
 FIN
@@ -132,7 +135,6 @@ Il reste 4 allumette(s)
 Au tour de l`ordinateur de tirer une, deux ou trois allumettes.
 L`ordinateur pioche 3 allumettes.
 Il reste 1 allumette(s)
-Il ne reste plus assez d`allumettes.
 Victoire de l`ordi
 }
 END.

@@ -83,14 +83,15 @@ DEBUT :
 			ECRIRE "Au tour du second joueur de tirer une, deux ou trois allumettes."
 		FINSI
 		LIRE pioche
-		SI (pioche<=3) OU (pioche>=1) ALORS
-			total<-total-pioche
-			cptour<-cptour+1
-			ECRIRE "Il reste ",total," allumettes"
+		SI (pioche<total )ALORS
+			SI (pioche<=3) OU (pioche>=1) ALORS
+				total<-total-pioche
+				cptour<-cptour+1
+				ECRIRE "Il reste ",total," allumettes"
+			SINON
+				ECRIRE "Saisie incorrecte. Veuillez tirer une, deux ou trois allumettes."
+			FINSI
 		SINON
-			ECRIRE "Saisie incorrecte. Veuillez tirer une, deux ou trois allumettes."
-		FINSI
-		SI (total-pioche<0) et (pioche<=3) et (pioche>=1)ALORS
 			ECRIRE "Il ne reste plus assez d'allumettes."
 		FINSI
 	FINTANTQUE
@@ -134,7 +135,6 @@ Il reste 3 allumette(s)
 Au tour du premier joueur de tirer une, deux ou trois allumettes.
 2
 Il reste 1 allumette(s)
-Il ne reste plus assez d`allumettes.
 Victoire du joueur 1
 	
 }
